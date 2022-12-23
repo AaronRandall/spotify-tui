@@ -1,3 +1,5 @@
+use std::fmt;
+
 use crate::app::{
   ActiveBlock, AlbumTableContext, App, Artist, ArtistBlock, EpisodeTableContext, RouteId,
   ScrollableResultPages, SelectedAlbum, SelectedFullAlbum, SelectedFullShow, SelectedShow,
@@ -88,6 +90,63 @@ pub enum IoEvent {
   GetShow(String),
   GetCurrentShowEpisodes(String, Option<u32>),
   AddItemToQueue(String),
+}
+
+impl fmt::Display for IoEvent {
+  fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+     match *self {
+         IoEvent::GetCurrentPlayback => write!(f, "GetCurrentPlayback"),
+         IoEvent::RefreshAuthentication => write!(f, "RefreshAuthentication"),
+         IoEvent::GetPlaylists => write!(f, "GetPlaylists"),
+         IoEvent::GetDevices => write!(f, "GetDevices"),
+         IoEvent::GetSearchResults(_, _) => write!(f,"GetSearchResults"),
+         IoEvent::SetTracksToTable(_) => write!(f,"SetTracksToTable"),
+         IoEvent::GetMadeForYouPlaylistTracks(_, _) => write!(f,"GetMadeForYouPlaylistTracks"),
+         IoEvent::GetPlaylistTracks(_, _) => write!(f,"GetPlaylistTracks"),
+         IoEvent::GetCurrentSavedTracks(_) => write!(f,"GetCurrentSavedTracks"),
+         IoEvent::StartPlayback(_, _, _) => write!(f,"StartPlayback"),
+         IoEvent::UpdateSearchLimits(_, _) => write!(f,"UpdateSearchLimits"),
+         IoEvent::Seek(_) => write!(f,"Seek"),
+         IoEvent::NextTrack => write!(f,"NextTrack"),
+         IoEvent::PreviousTrack => write!(f,"PreviousTrack"),
+         IoEvent::Shuffle(_) => write!(f,"Shuffle"),
+         IoEvent::Repeat(_) => write!(f,"Repeat"),
+         IoEvent::PausePlayback => write!(f,"PausePlayback"),
+         IoEvent::ChangeVolume(_) => write!(f,"ChangeVolume"),
+         IoEvent::GetArtist(_, _, _) => write!(f,"GetArtist"),
+         IoEvent::GetAlbumTracks(_) => write!(f,"GetAlbumTracks"),
+         IoEvent::GetRecommendationsForSeed(_, _, _, _) => write!(f,"GetRecommendationsForSeed"),
+         IoEvent::GetCurrentUserSavedAlbums(_) => write!(f,"GetCurrentUserSavedAlbums"),
+         IoEvent::CurrentUserSavedAlbumsContains(_) => write!(f,"CurrentUserSavedAlbumsContains"),
+         IoEvent::CurrentUserSavedAlbumDelete(_) => write!(f,"CurrentUserSavedAlbumDelete"),
+         IoEvent::CurrentUserSavedAlbumAdd(_) => write!(f,"CurrentUserSavedAlbumAdd"),
+         IoEvent::UserUnfollowArtists(_) => write!(f,"UserUnfollowArtists"),
+         IoEvent::UserFollowArtists(_) => write!(f,"UserFollowArtists"),
+         IoEvent::UserFollowPlaylist(_, _, _) => write!(f,"UserFollowPlaylist"),
+         IoEvent::UserUnfollowPlaylist(_, _) => write!(f,"UserUnfollowPlaylist"),
+         IoEvent::MadeForYouSearchAndAdd(_, _) => write!(f,"MadeForYouSearchAndAdd"),
+         IoEvent::GetAudioAnalysis(_) => write!(f,"GetAudioAnalysis"),
+         IoEvent::GetUser => write!(f,"GetUser"),
+         IoEvent::ToggleSaveTrack(_) => write!(f,"ToggleSaveTrack"),
+         IoEvent::GetRecommendationsForTrackId(_, _) => write!(f,"GetRecommendationsForTrackId"),
+         IoEvent::GetRecentlyPlayed => write!(f,"GetRecentlyPlayed"),
+         IoEvent::GetFollowedArtists(_) => write!(f,"GetFollowedArtists"),
+         IoEvent::SetArtistsToTable(_) => write!(f,"SetArtistsToTable"),
+         IoEvent::UserArtistFollowCheck(_) => write!(f,"UserArtistFollowCheck"),
+         IoEvent::GetAlbum(_) => write!(f,"GetAlbum"),
+         IoEvent::TransferPlaybackToDevice(_) => write!(f,"TransferPlaybackToDevice"),
+         IoEvent::GetAlbumForTrack(_) => write!(f,"GetAlbumForTrack"),
+         IoEvent::CurrentUserSavedTracksContains(_) => write!(f,"CurrentUserSavedTracksContains"),
+         IoEvent::GetCurrentUserSavedShows(_) => write!(f,"GetCurrentUserSavedShows"),
+         IoEvent::CurrentUserSavedShowsContains(_) => write!(f,"CurrentUserSavedShowsContains"),
+         IoEvent::CurrentUserSavedShowDelete(_) => write!(f,"CurrentUserSavedShowDelete"),
+         IoEvent::CurrentUserSavedShowAdd(_) => write!(f,"CurrentUserSavedShowAdd"),
+         IoEvent::GetShowEpisodes(_) => write!(f,"GetShowEpisodes"),
+         IoEvent::GetShow(_) => write!(f,"GetShow"),
+         IoEvent::GetCurrentShowEpisodes(_, _) => write!(f,"GetCurrentShowEpisodes"),
+         IoEvent::AddItemToQueue(_) => write!(f,"AddItemToQueue"),
+     }
+  }
 }
 
 pub fn get_spotify(token_info: TokenInfo) -> (Spotify, SystemTime) {

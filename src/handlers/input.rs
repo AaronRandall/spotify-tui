@@ -78,9 +78,11 @@ pub fn handler(key: Key, app: &mut App) {
       app.input_idx += 1;
       app.input_cursor_position += compute_character_width(c);
 
-      // TEST
-      //app.input = String::from("TEST").chars().collect();
-      //app.input = String::from(self.user_config.behavior.error_log).chars().collect();
+      // Search as you type once the input is above 3 chars
+      let input_str: String = app.input.iter().collect();
+      if app.input.len() > 3 {
+        process_input(app, input_str);
+      }
     }
     Key::Backspace | Key::Ctrl('h') => {
       if !app.input.is_empty() && app.input_idx > 0 {
@@ -115,7 +117,8 @@ fn process_input(app: &mut App, input: String) {
 
   // Default fallback behavior: treat the input as a raw search phrase.
   app.dispatch(IoEvent::GetSearchResults(input, app.get_user_country()));
-  app.push_navigation_stack(RouteId::Search, ActiveBlock::SearchResultBlock);
+  //app.push_navigation_stack(RouteId::Search, ActiveBlock::SearchResultBlock);
+  app.push_navigation_stack(RouteId::Search, ActiveBlock::Input);
 }
 
 fn spotify_resource_id(base: &str, uri: &str, sep: &str, resource_type: &str) -> (String, bool) {

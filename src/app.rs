@@ -613,9 +613,6 @@ impl App {
       // When no offset or uris are passed, spotify will resume current playback
       self.dispatch(IoEvent::StartPlayback(None, None, None));
     }
-
-    //TEST
-    //self.log("THIS IS A TEST".to_string());
   }
 
   pub fn log(&mut self, log_message: String) {

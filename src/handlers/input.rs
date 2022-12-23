@@ -119,8 +119,12 @@ fn process_input(app: &mut App, input: String) {
 
   // Default fallback behavior: treat the input as a raw search phrase.
   app.dispatch(IoEvent::GetSearchResults(input, app.get_user_country()));
-  //app.push_navigation_stack(RouteId::Search, ActiveBlock::SearchResultBlock);
-  app.push_navigation_stack(RouteId::Search, ActiveBlock::Input);
+  app.push_navigation_stack(RouteId::Search, ActiveBlock::SearchResultBlock);
+  
+  // EXPERIMENTAL: If search as you type is enabled, keep input on search box
+  if false {
+    app.push_navigation_stack(RouteId::Search, ActiveBlock::Input);
+  }
 }
 
 fn spotify_resource_id(base: &str, uri: &str, sep: &str, resource_type: &str) -> (String, bool) {

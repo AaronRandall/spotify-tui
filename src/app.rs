@@ -40,8 +40,8 @@ pub const LIBRARY_OPTIONS: [&str; 6] = [
 
 const DEFAULT_ROUTE: Route = Route {
   id: RouteId::Home,
-  active_block: ActiveBlock::Empty,
-  hovered_block: ActiveBlock::Library,
+  active_block: ActiveBlock::Input,
+  hovered_block: ActiveBlock::Input,
 };
 
 #[derive(Clone)]

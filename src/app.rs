@@ -433,11 +433,13 @@ impl App {
   pub fn dispatch(&mut self, action: IoEvent) {
     // `is_loading` will be set to false again after the async action has finished in network.rs
     self.is_loading = true;
+    self.log("Performing an action in dispatch".to_string());
+
     if let Some(io_tx) = &self.io_tx {
       if let Err(e) = io_tx.send(action) {
         self.is_loading = false;
         println!("Error from dispatch {}", e);
-        // TODO: handle error
+          self.log(e.to_string());
       };
     }
   }

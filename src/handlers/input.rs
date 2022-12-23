@@ -77,6 +77,10 @@ pub fn handler(key: Key, app: &mut App) {
       app.input.insert(app.input_idx, c);
       app.input_idx += 1;
       app.input_cursor_position += compute_character_width(c);
+
+      // TEST
+      //app.input = String::from("TEST").chars().collect();
+      //app.input = String::from(self.user_config.behavior.error_log).chars().collect();
     }
     Key::Backspace | Key::Ctrl('h') => {
       if !app.input.is_empty() && app.input_idx > 0 {

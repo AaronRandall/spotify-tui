@@ -600,8 +600,7 @@ impl App {
   }
 
   pub fn handle_error(&mut self, e: anyhow::Error) {
-    self.push_navigation_stack(RouteId::Error, ActiveBlock::Error);
-    self.api_error = e.to_string();
+    self.log(e.to_string());
   }
 
   pub fn toggle_playback(&mut self) {
@@ -614,6 +613,17 @@ impl App {
       // When no offset or uris are passed, spotify will resume current playback
       self.dispatch(IoEvent::StartPlayback(None, None, None));
     }
+
+    //TEST
+    //self.log("THIS IS A TEST".to_string());
+  }
+
+  pub fn log(&mut self, log_message: String) {
+    let formatted_log_message = format!("{}{}", log_message, "\n".to_string());
+
+    std::fs::write(self.user_config.behavior.error_log.to_string(), formatted_log_message.to_string()).expect(&format!(
+      "Failed to write"
+    ));
   }
 
   pub fn previous_track(&mut self) {

@@ -219,6 +219,7 @@ pub struct BehaviorConfigString {
   pub repeat_context_icon: Option<String>,
   pub playing_icon: Option<String>,
   pub paused_icon: Option<String>,
+  pub error_log: Option<String>,
   pub set_window_title: Option<bool>,
 }
 
@@ -236,6 +237,7 @@ pub struct BehaviorConfig {
   pub repeat_context_icon: String,
   pub playing_icon: String,
   pub paused_icon: String,
+  pub error_log: String,
   pub set_window_title: bool,
 }
 
@@ -299,6 +301,7 @@ impl UserConfig {
         repeat_context_icon: "🔁".to_string(),
         playing_icon: "▶".to_string(),
         paused_icon: "⏸".to_string(),
+        error_log: "error.log".to_string(),
         set_window_title: true,
       },
       path_to_config: None,
@@ -459,6 +462,10 @@ impl UserConfig {
 
     if let Some(set_window_title) = behavior_config.set_window_title {
       self.behavior.set_window_title = set_window_title;
+    }
+
+    if let Some(error_log) = behavior_config.error_log {
+      self.behavior.error_log = error_log;
     }
 
     Ok(())

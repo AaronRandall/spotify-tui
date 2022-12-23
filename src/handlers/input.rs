@@ -78,10 +78,12 @@ pub fn handler(key: Key, app: &mut App) {
       app.input_idx += 1;
       app.input_cursor_position += compute_character_width(c);
 
-      // Search as you type once the input is above 3 chars
-      let input_str: String = app.input.iter().collect();
-      if app.input.len() > 3 {
-        process_input(app, input_str);
+      // EXPERIMENTAL: Search as you type once the input is above 3 chars
+      if false {
+        let input_str: String = app.input.iter().collect();
+        if app.input.len() > 3 {
+          process_input(app, input_str);
+        }
       }
     }
     Key::Backspace | Key::Ctrl('h') => {
